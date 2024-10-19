@@ -1,0 +1,99 @@
+<!-- List of orders -->
+<div *ngIf="hasOrders; else noOrders">
+  <h3  class="text-center" style=" color: #a00000;  font-weight: bold;">Danh Sách Đơn Hàng Của Bạn</h3>
+
+  
+  <div *ngIf="selectedOrder" id="cancelOrderModal" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Hủy đơn hàng</h5>
+          <button type="button" class="close" (click)="closeCancelOrderForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="cancelOrderForm" (ngSubmit)="onConfirmCancelOrder()">
+            <div class="mb-3">
+              <label for="orderID" class="form-label">Mã đơn hàng</label>
+              <input type="text" id="orderID" class="form-control" [value]="selectedOrder.orderID" disabled>
+            </div>
+  
+            <div class="mb-3">
+              <label for="cancellationReason" class="form-label">Lý do hủy đơn</label>
+              <textarea id="cancellationReason" formControlName="cancellationReason" class="form-control" rows="3" required></textarea>
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeCancelOrderForm()">Hủy</button>
+              <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="order-table">
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>
+          <table class="order-detail-table">
+            <thead>
+              <tr>
+                <th>Tên Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Giá</th>
+                <th>Thành Tiền</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item1 of order.orderDetails" [ngClass]="{'new-order': isNewOrder(order)}">
+                <td>{{  item1.productName ? item1.productName : 'Đang tải...'}}</td>
+                <td>{{ item1.quantity }}</td>
+                <td>{{ item1.price | number: '1.0-0' }}đ</td>
+                <td>{{ (item1.price * item1.quantity) | number: '1.0-0' }}đ</td>
+                <td>{{ order.orderStatus }}</td>
+                <td>
+                  <button *ngIf="isOrderCancelable(order)" (click)="showCancelOrderModal(order)" class="btn btn-danger">
+                    Hủy đơn hàng
+                  </button>
+                  <button *ngIf="!isOrderCancelable(order)" class="btn btn-secondary">Hủy đơn hàng</button>
+                </td>
+              </tr>
+
+              <!-- <tr *ngFor="let item1 of orderItem">
+                <td>{{  item1.productName }}</td>
+                <td>{{ item1.quantity }}</td>
+                <td>{{ item1.price | number: '1.0-0' }}đ</td>
+                <td>{{ (item1.price * item1.quantity) | number: '1.0-0' }}đ</td>
+                <td>{{ order.orderStatus }}</td>
+                <td>
+                  <button *ngIf="isOrderCancelable(order)" (click)="showCancelOrderModal(order)" class="btn btn-danger">
+                    Hủy đơn hàng
+                  </button>
+                  <button *ngIf="!isOrderCancelable(order)" class="btn btn-secondary">Hủy đơn hàng</button>
+                </td>
+              </tr>  -->
+             
+            </tbody>
+          </table>
+          <div class="order-total">
+            <strong style=" color: #a00000;  font-weight: bold;">Tổng số tiền: {{ order.totalAmount | number: '1.0-0' }}đ</strong>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- <div *ngFor="let item1 of orderItem">
+  <td>{{  item1.productName }}</td>
+</div> -->
+<!-- No orders template -->
+<ng-template #noOrders>
+  <h3 class="text-center">Danh Sách Đơn Hàng Của Bạn Trống nha!</h3>
+</ng-template>
+
+<!-- Modal for cancelling order -->
+

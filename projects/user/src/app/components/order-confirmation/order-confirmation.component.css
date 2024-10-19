@@ -1,0 +1,58 @@
+/* CSS cho bảng đơn hàng */
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.order-table th, .order-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.order-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* CSS cho bảng chi tiết đơn hàng */
+.order-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.order-detail-table th, .order-detail-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.order-detail-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* CSS để làm nổi bật các đơn hàng mới */
+.new-order {
+  background-color: #d0f0c0; /* Màu xanh nhẹ */
+}
+
+/* Thêm một số styling cho bảng */
+table {
+  margin: 20px 0;
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.new-order {
+  background-color: #e7f7d8; /* Màu xanh sáng cho đơn hàng mới */
+}

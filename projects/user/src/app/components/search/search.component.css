@@ -1,0 +1,216 @@
+/* Thay đổi để content chiếm toàn bộ không gian */
+main {
+    background-color: white;
+  }
+  
+  #bg {
+    background-color: gainsboro;
+  }
+  
+  /* Sử dụng grid cho layout chính */
+  .content {
+    display: grid;
+    grid-template-columns: 9fr 3fr; /* Tỷ lệ 8/4 */
+    gap: 20px; /* Khoảng cách giữa hai phần */
+    background-color: white;
+    font-size: 15px;
+    padding: 20px; /* Thêm padding cho nội dung nếu cần */
+  }
+  
+  /* Định dạng phần chứa sản phẩm */
+  .product-section {
+    display: grid; /* Sử dụng grid để kiểm soát lưới sản phẩm */
+    grid-template-columns: repeat(5, 1fr); /* 2 cột đều trong mỗi dòng */
+    gap: 20px;
+    transform: translateY(50px);  /* Khoảng cách giữa các sản phẩm */
+  }
+  
+  /* Định dạng cho mỗi sản phẩm */
+  .product-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+  }
+  
+  .product-item:hover {
+    transform: translateY(-5px); /* Hiệu ứng di chuyển khi hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+  }
+  
+  .product-item img {
+    width: 168px;
+    height: 168px;
+    margin-bottom: 10px;
+  }
+  
+  .product-item h5 {
+    font-size: 16px; /* Giảm kích thước font chữ */
+  }
+  
+  .product-item p {
+    font-size: 14px; /* Giảm kích thước font chữ */
+  }
+  
+  .product-item button {
+    padding: 10px 20px;
+    background-color: #a00000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .product-item button:hover {
+    background-color: #ff3333; /* Đổi màu khi hover */
+    transform: translateY(-5px); /* Trượt lên một chút */
+  }
+  /* Phần sản phẩm khuyến mãi */
+  .promotion-section {
+    background-color: #ffe6e6;
+    padding: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .promotion-item {
+    position: relative;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+  }
+  
+  .promotion-item:hover {
+    transform: translateY(-5px); /* Hiệu ứng di chuyển khi hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+  }
+  
+  .promotion-item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .discount-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 50%;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #777;
+  }
+  
+  .discounted-price {
+    color: #ff4d4d;
+    font-weight: bold;
+  }
+  
+  .discount-button {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .discount-button:hover {
+    background-color: #ff3333; /* Đổi màu khi hover */
+  }
+  /* Phần giao diện phân trang */
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .pagination li {
+    margin: 0 5px;
+  }
+  
+  .pagination li a {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Hiển thị nút phân trang khi hover */
+  .pagination li a:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Nút phân trang khi đang active */
+  .pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Nút phân trang khi disabled */
+  .pagination li.disabled a {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+  .no-products {
+    text-align: center;
+    padding: 30px;
+   
+   
+    margin-top: 50px;
+   
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .no-products h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #a00000;
+  }
+  
+  .no-products p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .no-products button {
+    background-color: #a00000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  
+  .no-products button:hover {
+    background-color: #a00000;
+  }
+  

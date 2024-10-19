@@ -1,0 +1,151 @@
+<h2 id="headerPromotion">Danh sách khuyến mãi</h2>
+<p-toast position="top-center"></p-toast>
+
+<div class="mt-3 d-flex justify-content-between align-items-center">
+  <button type="button" class="btn btn-success" (click)="openFormAddPromotion()">Thêm khuyến mãi</button>
+  <div class="search-container d-flex">
+    <input id="input_search" type="input" placeholder="Tìm kiếm khuyến mãi..." class="form-control" #searchTerm>
+    <button class="btn btn-secondary ml-2" (click)="searchPromotion(searchTerm.value)">Tìm</button>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngIf="promotions.length === 0">Chưa có khuyến mãi nào.</div>
+
+  <table *ngIf="promotions.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Mã khuyến mãi</th>
+        <th>Tên khuyến mãi</th>
+        <th>Phần trăm giảm giá</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let promotion of promotions">
+        <td>{{ promotion.promotionID }}</td>
+        <td>{{ promotion.promotionName }}</td>
+        <td>{{ promotion.discountPercentage }}</td>
+        <td>{{ promotion.startDate | date:'dd/MM/yyyy' }}</td>
+        <td>{{ promotion.endDate | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="setPromotionToUpdate(promotion)">Cập nhật</button>
+          <button class="btn btn-danger" (click)="setPromotionToDelete(promotion)">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal thêm khuyến mãi -->
+<!-- Modal thêm khuyến mãi -->
+<div class="modal" id="addPromotionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm khuyến mãi mới</h5>
+        <button type="button" class="close" (click)="closeFormAddPromotion()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Reactive Form -->
+        <form [formGroup]="addPromotionForm" (ngSubmit)="addPromotion()">
+          <div class="mb-3">
+            <label for="promotionName" class="form-label">Tên khuyến mãi</label>
+            <input type="text" id="promotionName" class="form-control" formControlName="promotionName">
+          </div>
+          <div class="mb-3">
+            <label for="discountPercentage" class="form-label">Phần trăm giảm giá</label>
+            <input type="number" id="discountPercentage" class="form-control" formControlName="discountPercentage">
+          </div>
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Ngày bắt đầu</label>
+            <input type="date" id="startDate" class="form-control" formControlName="startDate">
+          </div>
+          <div class="mb-3">
+            <label for="endDate" class="form-label">Ngày kết thúc</label>
+            <input type="date" id="endDate" class="form-control" formControlName="endDate">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeFormAddPromotion()">Hủy</button>
+            <button type="submit" class="btn btn-primary" [disabled]="addPromotionForm.invalid">Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal cập nhật khuyến mãi -->
+<div class="modal" id="updatePromotionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cập nhật khuyến mãi</h5>
+        <button type="button" class="close" (click)="closeFormUpdatePromotion()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- FormGroup reactive form -->
+        <form [formGroup]="updatePromotionForm" (ngSubmit)="onUpdatePromotion()">
+          <div class="mb-3">
+            <label for="promotionName" class="form-label">Tên khuyến mãi</label>
+            <input type="text" id="promotionName" class="form-control" formControlName="promotionName">
+          </div>
+          <div class="mb-3">
+            <label for="discountPercentage" class="form-label">Phần trăm giảm giá</label>
+            <input type="number" id="discountPercentage" class="form-control" formControlName="discountPercentage">
+          </div>
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Ngày bắt đầu</label>
+            <input type="date" id="startDate" class="form-control" formControlName="startDate">
+          </div>
+          <div class="mb-3">
+            <label for="endDate" class="form-label">Ngày kết thúc</label>
+            <input type="date" id="endDate" class="form-control" formControlName="endDate">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeFormUpdatePromotion()">Hủy</button>
+            <button type="submit" class="btn btn-primary" [disabled]="updatePromotionForm.invalid">Cập nhật</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="deletePromotionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletePromotionModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" (click)="closeFormDeletePromotion()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Form sử dụng ngSubmit cho việc xóa promotion -->
+        <form [formGroup]="deletePromotionForm" (ngSubmit)="onDelete()">
+          <!-- Liên kết input với formControlName thay vì chỉ dùng [value] -->
+          <input type="hidden" formControlName="promotionID" class="form-control">
+          <p>Bạn có chắc chắn muốn xóa khuyến mãi này?</p>
+          <p><strong>{{ selectedPromotion?.promotionName }}</strong></p>
+        
+          <div class="modal-footer">
+            <!-- Nút hủy đóng modal -->
+            <button type="button" class="btn btn-secondary" (click)="closeFormDeletePromotion()">Hủy</button>
+            <!-- Nút xóa dùng submit form -->
+            <button type="submit" class="btn btn-danger" (click)="closeFormDeletePromotion()">Xóa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

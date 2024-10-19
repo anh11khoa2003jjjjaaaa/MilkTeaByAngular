@@ -1,0 +1,17 @@
+<main>
+    <div class="row">
+        <!-- Left Section: Regular Products (8 phần) -->
+        <div class="col-md-8">
+            <div class="product-section">
+                <!-- Duyệt qua danh sách sản phẩm và hiển thị -->
+                <div *ngFor="let pd of products" class="product-item">
+                    <img [src]="pd.imageURL" alt="Bánh bông lan" />
+                    <h5>{{ pd.productName }}</h5>
+                    <h5>{{ pd.categoryName }}</h5>
+                    <p>Giá: <strong>{{ pd.price | number: '1.0-0' }}đ</strong></p>
+                    <strong><button [routerLink]="['/product-detail', pd.productID]">ĐẶT NƯỚC</button></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

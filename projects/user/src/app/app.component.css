@@ -1,0 +1,200 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: #f9f9f9; */
+    background-color: pink;
+  }
+  
+  .container {
+    padding-top: 20px;
+    background-color: white;
+   
+   
+
+  }
+
+  /* Styling for header and navigation bar */
+  header {
+    background-color: #a00000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    color: white;
+  }
+  
+  .logo img {
+    height: 80px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-bar input {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .search-bar button {
+    padding: 8px 15px;
+    background-color: #4c4c4c;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .search-bar button:hover {
+    background-color: #333;
+  }
+  
+  /* Navbar Styling */
+  .navbar {
+    background-color: #a00000;
+    padding: 10px 0;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    margin: 0 20px;
+  }
+  
+  .navbar a {
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 15px;
+  }
+  
+  .navbar a:hover {
+    background-color: #ff4d4d;
+    border-radius: 5px;
+  }
+  
+  /* Main Content Styling */
+  .content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;
+  }
+  
+  /* Left Section - Regular Products */
+  .product-section {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .product-item {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    width: 200px;
+  }
+  
+  .product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .product-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .product-item p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .product-item button {
+    padding: 10px 15px;
+    background-color: #a00000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-item button:hover {
+    background-color: #ff4d4d;
+  }
+  
+  /* Right Section - Discounted Products */
+  .promotion-section {
+    width: 300px;
+  }
+  
+  .promotion-item {
+    position: relative;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  .promotion-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .discount-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  .promotion-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  .discounted-price {
+    font-size: 18px;
+    color: #a00000;
+    font-weight: bold;
+  }
+  
+  .discount-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .discount-button:hover {
+    background-color: #0056b3;
+  }
+  

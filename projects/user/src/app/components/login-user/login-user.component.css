@@ -1,0 +1,18 @@
+body {
+    background-color: #f8f9fa; /* Màu nền nhẹ */
+  }
+  
+  .card {
+    border-radius: 8px;
+    border: none;
+  }
+  
+  input::placeholder {
+    color: #6c757d; /* Màu placeholder nhẹ */
+    opacity: 0.8;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  

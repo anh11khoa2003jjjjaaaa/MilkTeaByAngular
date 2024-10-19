@@ -1,0 +1,85 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+.container {
+    margin-top: 50px;
+}
+
+.mt-3 {
+    background-color: #f8f9fa; /* Màu nền nhẹ hơn */
+    padding: 20px; /* Thêm padding cho không gian */
+    border-radius: 8px; /* Bo góc cho khung tìm kiếm */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng cho khung */
+}
+
+.search-container {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+#input_search {
+    width: 300px; /* Thay đổi kích thước cho phù hợp */
+    background: #ffffff; /* Màu nền trắng cho thanh tìm kiếm */
+    border: 2px solid #ced4da; /* Đường viền nhẹ */
+    border-radius: 30px; /* Bo góc thanh tìm kiếm */
+    padding: 10px 15px; /* Thêm padding bên trong */
+}
+
+.btn-success {
+    background-color: #28a745; /* Màu xanh lá cây */
+    border-color: #28a745; /* Đường viền cùng màu */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Màu xám */
+    border-color: #6c757d; /* Đường viền cùng màu */
+}
+
+.table {
+     /* Khoảng cách giữa tìm kiếm và bảng */
+    border-radius: 8px; /* Bo góc cho bảng */
+    overflow: hidden; /* Để các góc bo được hiển thị đúng */
+   
+}
+
+.table th, .table td {
+    text-align: center; /* Căn giữa nội dung bảng */
+}
+
+.modal-content {
+    border-radius: 8px; /* Bo góc cho modal */
+}
+
+.modal-header, .modal-footer {
+    border: none; /* Bỏ đường viền cho header và footer modal */
+}
+
+.modal-title {
+    font-weight: bold; /* Tăng cường độ dày cho tiêu đề */
+}
+#gb_btn{
+   display:flex;
+    justify-content: space-evenly;
+    padding-top:37px;
+  
+}
+
+#headerCate{
+display: flex;
+justify-content: center;
+padding-top: 40px;
+transform: translateY(-30px);
+text-align: center;
+
+}
+.ui-toast-detail {
+    white-space: pre-line;
+ }
+
+ td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+
+}

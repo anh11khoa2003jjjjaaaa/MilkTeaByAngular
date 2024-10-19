@@ -1,0 +1,169 @@
+/* Header Styling */
+header {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Chia cột cho logo và search-bar */
+  align-items: center;
+  padding: 20px;
+  background-color: #a00000; /* Màu nền cho header */
+  color: white;
+  gap: 10px;
+}
+
+.logo img {
+  height: 80px; /* Chiều cao cho logo */
+  max-width: 100%;
+}
+
+.search-bar {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  width: 50%; /* Chiều rộng search bar */
+}
+
+.search-bar input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%; /* Chiều rộng đầy đủ */
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background-color: #ff4d4d; /* Màu nền cho nút tìm */
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #ff3333; /* Màu hover cho nút tìm */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  header {
+    grid-template-columns: 1fr; /* Chuyển header thành 1 cột */
+  }
+
+  .search-bar {
+    grid-template-columns: 1fr; /* Đặt input và nút tìm kiếm thành 1 cột */
+  }
+}
+/* Navbar Styling */
+.navbar {
+  background-color: #a00000; /* Màu nền cho thanh điều hướng */
+  padding: 10px 0;
+}
+
+.navbar ul {
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  grid-template-columns: repeat(7, 1fr); /* Cột cho thanh menu */
+  gap: 10px;
+ 
+}
+
+.navbar li {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar a {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #ff4d4d; /* Màu nền khi hover */
+  border-radius: 5px;
+}
+
+.navbar a.active {
+  border-bottom: 2px solid #ffff; /* Màu sắc của đường gạch dưới */
+  padding-bottom: 8px; /* Khoảng cách giữa chữ và đường gạch */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar ul {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Điều chỉnh độ rộng tối thiểu */
+  }
+
+  .navbar a {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar ul {
+    grid-template-columns: 1fr; /* Thanh điều hướng xếp thành 1 cột khi màn hình rất nhỏ */
+  }
+
+  .navbar a {
+    padding: 10px;
+  }
+
+  .logo img {
+    height: 60px; /* Điều chỉnh kích thước logo nhỏ hơn */
+  }
+}
+
+/* Dropdown */
+.navbar .dropdown {
+  position: relative;
+ 
+}
+
+.navbar .dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: white;  /* Đặt nền màu đỏ cho menu dropdown */
+  top: 100%;
+  left: 0;
+  min-width: 500px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.navbar .dropdown:hover .dropdown-menu {
+ 
+  display: flex;
+  
+}
+
+.navbar .dropdown-menu li {
+  padding: 10px;
+  text-align: center;
+  height: 100px;
+  width:auto ;
+ 
+  
+}
+
+.navbar .dropdown-menu a {
+  color:#a00000;
+  font-size: 14px;
+  display: block;
+  flex-direction: row;
+  width: auto;
+}
+
+.navbar .dropdown-menu a:hover {
+  background-color: #e74c3c;
+  border-radius: 5px;
+}

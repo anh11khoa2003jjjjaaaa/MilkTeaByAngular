@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dashboard</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            font-size: .875rem;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+        }
+
+        .sidebar .nav-link {
+            color: #333;
+        }
+
+        .sidebar .nav-link.active {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .main {
+            margin-left: 220px;
+            /* Width of the sidebar */
+        }
+
+        .card-deck .card {
+            min-width: 12rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <h2 class="sidebar-heading text-center">MilkTea</h2>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" [routerLink]="['/home']">
+                                <!-- <i class="fas fa-home"></i> -->
+                                <i class="fa-solid fa-house"></i> Trang chủ
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" [routerLink]="['/categories']">
+                                <i class="fa-solid fa-tag"></i> Loại sản phẩm
+                            </a>
+                        </li>
+
+
+                        <!-- This is where routed components will be displayed -->
+
+                        <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" [routerLink]="['/products']">
+                                <i class="fas fa-user-circle"></i>
+                                Sản phẩm
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" [routerLink]="['/order-detail']">
+                                <i class="fas fa-chart-line"></i>
+                                Đơn hàng
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" href="#">
+                                <i class="fas fa-credit-card"></i>
+                                Khách hàng
+                            </a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" [routerLink]="['/promotion']">
+                                <i class="fas fa-money-check-alt"></i>
+                               Khuyến mãi
+                            </a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link " routerLinkActive="active" [routerLink]="['/promotion-detail']">
+                                <i class="fas fa-cogs"></i>
+                                Chi tiết khuyến mãi
+                            </a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link ">
+                                <i class="fas fa-sliders-h"></i>
+                                Khuyến mãi
+                            </a>
+                        </li> -->
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownAccountMenu" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i> Tài khoản
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownAccountMenu">
+                                <li>
+                                    <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/login']">
+                                        <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" routerLinkActive="active" (click)="onLogout()">
+                                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    
+
+                </div>
+
+                <!-- Cards for Account Overview -->
+                <div class="card-deck mb-3">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Account</h5>
+                            <p class="card-text">3778 **** **** 1234</p>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Account</h5>
+                            <p class="card-text">1234 **** **** 5678</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Activity Chart -->
+
+                <div id="chart-container" class="mb-5">
+
+                    <!-- Placeholder for chart (use a chart library like Chart.js or any other for actual charts) -->
+                    <router-outlet></router-outlet>
+                </div>
+
+                <!-- Expense Statistics -->
+
+
+            </main>
+        </div>
+    </div>
+
+    <!-- JS and jQuery -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

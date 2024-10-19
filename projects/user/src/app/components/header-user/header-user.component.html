@@ -1,0 +1,48 @@
+<!-- Header Section with Logo and Search Bar -->
+<header>
+  <div class="logo">
+    <img [src]="'logo.png'" alt="Logo" />
+  </div>
+  <div class="search-bar">
+    <input type="text" id="searchTerm" [(ngModel)]="searchTerm" placeholder="Từ khóa tìm kiếm..." />
+    <button [routerLink]="['/search']" [queryParams]="{ searchTerm: searchTerm }">Tìm</button>
+  </div>
+</header>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <ul>
+    <li><a routerLink="/home" routerLinkActive="active">TRANG CHỦ</a></li>
+    <li><a routerLink="/about" routerLinkActive="active">VỀ CHÚNG TÔI</a></li>
+    <!-- Display Order link only if the user is logged in -->
+    <li *ngIf="isLoggedIn && userID">
+      <a routerLink="/order-confirm/{{userID}}" routerLinkActive="active">ĐƠN HÀNG</a>
+    </li>
+
+    <li style="display:flex;" class="dropdown">
+      <a  class="dropdown-toggle" data-toggle="dropdown">Thức Uống</a>
+      <ul class="dropdown-menu">
+        <!-- Dùng *ngFor để lặp qua các danh mục -->
+        <li *ngFor="let category of categories">
+          <a [routerLink]="['/DisplayListProductCategory_CategoryID', category.categoryID]">{{ category.categoryName }}</a>
+        </li>
+      </ul>
+    </li>
+    <!-- <li><a routerLink="/promotions" routerLinkActive="active">KHUYẾN MÃI</a></li> -->
+    <li><a routerLink="/cart" routerLinkActive="active">GIỎ HÀNG</a></li>
+  
+    <!-- Display Login link if user is not logged in -->
+    <li *ngIf="!isLoggedIn">
+      <a routerLink="/loginUser" routerLinkActive="active">ĐĂNG NHẬP</a>
+    </li>
+    <!-- Logout Link and Welcome Message for logged-in users -->
+    <li *ngIf="isLoggedIn">
+      <a class="dropdown-item" (click)="onLogout()">
+        <i class="fas fa-sign-out-alt"></i> ĐĂNG XUẤT
+      </a>
+    </li>
+   
+      <span style=" width:180px;color:white;position:absolute; left:180vh;top:-80px;font-weight: bold; " *ngIf="isLoggedIn">{{ displayName }}</span>
+  
+  </ul>
+</nav>

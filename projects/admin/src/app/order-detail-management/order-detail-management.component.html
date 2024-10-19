@@ -1,0 +1,184 @@
+<div class="container">
+    <h1>Quản Lý Đơn Hàng</h1>
+  
+    <!-- Search Form -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="form-group">
+        <label for="search"></label>
+        <input
+          id="search"
+          formControlName="searchTerm"
+          class="form-control"
+          placeholder="Tìm kiếm theo tên, trạng thái đơn hàng"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary mt-2">Tìm</button>
+    </form>
+  
+    <!-- Orders Table -->
+    <div *ngIf="hasOrders; else noOrdersMessage">
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th>Mã Đơn</th>
+            <th>Khách Hàng</th>
+            <th>Tình Trạng Đơn Hàng</th>
+            <th>Tổng Tiền</th>
+            <th>Thao Tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.orderID }}</td>
+            <td>{{ order.displayName }}</td>
+            <td>{{ order.orderStatus }}</td>
+            <td>{{ order.totalAmount | number: '1.0-0' }}đ</td>
+            <td>
+              <!-- Only show approve button for pending orders -->
+              <button
+                *ngIf="isPending(order)"
+                class="btn btn-success"
+                (click)="openApproveModal(order)"
+              >
+                Duyệt
+              </button>
+              <!-- View details button -->
+              <button
+                class="btn btn-info ml-2"
+                (click)="openOrderDetailModal(order)"
+              >
+                Xem chi tiết
+              </button>
+              <button class="btn btn-info ml-2" style="background-color: #a00000 ; color:white;" printSectionId="print-section" ngxPrint>Xuất hóa đơn</button> 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Approve Order Modal -->
+    <div class="modal" id="approveOrderModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="approveOrderModalLabel">Xác nhận duyệt đơn hàng</h5>
+            <button type="button" class="close" (click)="CloseFormApprove()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="approveOrderForm" (ngSubmit)="onApprove()">
+              <!-- Hidden field for orderID -->
+              <input type="hidden" id="orderID" [value]="selectedOrder?.orderID" class="form-control" disabled>
+  
+              <p>Bạn có chắc chắn muốn duyệt đơn hàng này?</p>
+              <p><strong>Mã đơn hàng: {{ selectedOrder?.orderID }}</strong></p>
+  
+              <!-- Current Status -->
+              <p>Trạng thái hiện tại: <strong>{{ selectedOrder?.orderStatus }}</strong></p>
+  
+              <!-- Combobox for selecting new status -->
+              <div class="form-group">
+                <label for="orderStatus">Chọn trạng thái mới</label>
+                <select formControlName="orderStatus" class="form-control" id="orderStatus">
+                  <option value="Đã duyệt">Đã duyệt</option>
+                  <option value="Hủy">Hủy</option>
+                </select>
+              </div>
+  
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="CloseFormApprove()">Hủy</button>
+                <button type="submit" class="btn btn-success">Duyệt</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Order Detail Modal -->
+    
+<!-- Dùng để in hóa đơn  -->
+    <div class="modal" id="orderDetailModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderDetailModalLabel">Chi tiết đơn hàng</h5>
+            <button type="button" class="close" (click)="CloseFormDetail()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Mã đơn hàng: {{ selectedOrder?.orderID }}</strong></p>
+            <p>Ngày tạo: {{ selectedOrder?.orderDate | date:'dd/MM/yyyy' }}</p>
+            <p>Khách hàng: {{ selectedOrder?.displayName }}</p>
+            <p>Trạng thái: {{ selectedOrder?.orderStatus }}</p>
+            <p>Tổng tiền: {{ selectedOrder?.totalAmount | number: '1.0-0' }}đ</p>
+  
+            <!-- Product details section -->
+            <h5>Chi tiết sản phẩm:</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Sản phẩm</th>
+                  <th>Kích cỡ</th>
+                  <th>Số lượng</th>
+                  <th>Giá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of selectedOrder?.orderDetails">
+                  <td>{{ product.productName }}</td>
+                  <td>{{ product.size }}</td>
+                  <td>{{ product.quantity }}</td>
+                  <td>{{ product.price | number: '1.0-0' }}đ</td>
+                </tr>
+              </tbody>
+            </table>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="CloseFormDetail()">Đóng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+    
+    <!-- <div id="print-section">
+      <div class="modal-body">
+        <p><strong>Mã đơn hàng: {{ selectedOrder?.orderID }}</strong></p>
+        <p>Ngày tạo: {{ selectedOrder?.orderDate | date:'dd/MM/yyyy' }}</p>
+        <p>Khách hàng: {{ selectedOrder?.displayName }}</p>
+        <p>Trạng thái: {{ selectedOrder?.orderStatus }}</p>
+        <p>Tổng tiền: {{ selectedOrder?.totalAmount | number: '1.0-0' }}đ</p>
+
+      
+        <h5>Chi tiết sản phẩm:</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Kích cỡ</th>
+              <th>Số lượng</th>
+              <th>Giá</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of selectedOrder?.orderDetails">
+              <td>{{ product.productName }}</td>
+              <td>{{ product.size }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>{{ product.price | number: '1.0-0' }}đ</td>
+            </tr>
+          </tbody>
+        </table>
+    </div> -->
+
+    <!-- No Orders Message -->
+    <ng-template #noOrdersMessage>
+      <p>No orders available.</p>
+    </ng-template>
+  </div>
+  

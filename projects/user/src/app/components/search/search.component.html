@@ -1,0 +1,28 @@
+<div class="row" *ngIf="isProductFound; else noProductsFound">
+    <div class="col-md-8">
+        <div style=" font-size: 20px; width:50%;position:absolute; left:55%; color: #a00000;  display:flex;justify-content:center; margin:0 auto;">
+            <strong><p class="tex-center" *ngIf="message">{{ message }}</p></strong>
+        </div>
+      <div class="product-section">
+        <!-- Hiển thị thông báo nếu không có sản phẩm -->
+       
+        <!-- Duyệt qua danh sách sản phẩm và hiển thị -->
+        <div *ngFor="let pd of products" class="product-item">
+          <img [src]="pd.imageURL" alt="{{ pd.productName }}" class="product-image" />
+          <h5>{{ pd.productName }}</h5>
+          <h6>{{ pd.categoryName }}</h6>
+          <p>Giá: <strong>{{ pd.price | number: '1.0-0' }}đ</strong></p>
+          <strong>
+            <button style=" font-weight: bold;" [routerLink]="['/product-detail', pd.productID]">ĐẶT NƯỚC</button>
+          </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noProductsFound>
+    <div class="no-products">
+      <h2>Sản phẩm "{{ searchTerm }}" không tìm thấy</h2>
+      <p>Xin lỗi, thông tin bạn tìm kiếm chúng tôi không tìm thấy. Vui lòng tìm lại hoặc quay về trang chủ.</p>
+      <button [routerLink]="['/']" >TRANG CHỦ</button>
+    </div>
+  </ng-template>

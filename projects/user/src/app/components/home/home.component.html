@@ -1,0 +1,35 @@
+
+
+
+
+<main>
+ <img src="" alt="">
+   
+    <!-- Left Section: Regular Products (8 phần) -->
+    <div class="col-md-12">
+      <div class="product-section">
+        <!-- Hiển thị kết quả tìm kiếm hoặc tất cả sản phẩm -->
+        <div *ngFor="let pd of (searchResults.length ? searchResults : products)" class="product-item">
+          <img [src]="pd.imageURL" alt="Bánh bông lan" />
+          <h5>{{ pd.productName }}</h5>
+          <h5>{{ pd.categoryName }}</h5>
+          <p>Giá: <strong>{{ pd.price | number: '1.0-0' }}đ</strong></p>
+          <button [routerLink]="['/product-detail', pd.productID]">ĐẶT NƯỚC</button>
+        </div>
+
+        <!-- Hiển thị phân trang -->
+        <!-- <div class="pagination">
+          <button *ngFor="let page of pageNumbers" (click)="goToPage(page)">  
+            {{ page }}
+          </button>
+        </div> -->
+      
+    </div>
+
+    <!-- Right Section: Nội dung khác -->
+    <!-- <div class="col-md-4" id="bg">
+      <h3>Các sự kiện khuyến mãi trong tháng</h3>
+      <p>.</p>
+    </div> -->
+  </div>
+</main>

@@ -1,0 +1,20 @@
+<!-- Form Login with Bootstrap -->
+<div class="container d-flex justify-content-center align-items-center ">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-4">Login</h2>
+    <form (ngSubmit)="onLogin()">
+      <div class="mb-3">
+        <label for="userName" class="form-label">Username:</label>
+        <input type="text" id="userName" class="form-control" [(ngModel)]="userName" name="userName" required placeholder="Enter your username">
+      </div>
+      <div class="mb-3">
+        <label for="passWord" class="form-label">Password:</label>
+        <input type="password" id="passWord" class="form-control" [(ngModel)]="passWord" name="passWord" required placeholder="Enter your password">
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    </form>
+  </div>
+</div>

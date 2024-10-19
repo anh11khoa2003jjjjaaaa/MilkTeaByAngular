@@ -1,0 +1,151 @@
+<!-- Toast message -->
+<p-toast position="top-center"
+    [showTransformOptions]="'translateY(100%)'" 
+    [showTransitionOptions]="'1000ms'" 
+    [hideTransitionOptions]="'1000ms'" 
+    [hideTransformOptions]="'translateY(0%)'">
+</p-toast>
+
+<h2 id="headerIng">Danh mục nguyên liệu</h2>
+
+<div class="mt-3 d-flex justify-content-between align-items-center">
+  <button type="button" class="btn btn-success" (click)="openFormAdd()">
+    Thêm nguyên liệu
+  </button>
+  <div class="search-container d-flex">
+    <input id="input_search" type="input" placeholder="Search ingredient..." class="form-control" #searchTerm>
+    <button class="btn btn-secondary ml-2" (click)="searchIngredient(searchTerm.value)">Search</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Message if no ingredients are available -->
+  <p *ngIf="ingredients.length === 0">Không tồn tại nguyên liệu</p>
+
+  <!-- Table to display ingredients -->
+  <table *ngIf="ingredients.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 100px;">Mã nguyên liệu</th>
+        <th style="width: 200px;">Tên nguyên liệu</th>
+        <th style="width: 150px;">Mã nhà cung cấp</th>
+        <th style="width: 100px;">Giá</th>
+        <th style="width: 80px;">Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ingredient of ingredients">
+        <td>{{ ingredient.ingredientID }}</td>
+        <td>{{ ingredient.ingredientName }}</td>
+        <td>{{ ingredient.supplierID }}</td>
+        <td>{{ ingredient.price | currency }}</td>
+        <td id="gb_btn">
+          <!-- Update and Delete buttons -->
+          <button type="button" id="btn_edit" class="btn btn-primary" (click)="setIngredientToUpdate(ingredient)">
+            <i class="fa-solid fa-wrench"></i>
+          </button>
+          <button type="button" id="btn_delete" class="btn btn-danger" (click)="onDelete()" (click)="setIngredientToDelete(ingredient)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for adding an ingredient -->
+<div class="modal" id="addIngredientModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: brown;">
+        <h5 class="modal-title" id="addIngredientModalLabel" style="color:white">Thêm nguyên liệu mới</h5>
+        <button type="button" class="close" (click)="CloseFormAdd()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addIngredientForm" (ngSubmit)="onSubmit()">
+          <input type="hidden" id="ingredientID" [value]="newIngredientId" class="form-control" disabled>
+
+          <div class="mb-3">
+            <label for="ingredientName" class="form-label">Tên nguyên liệu</label>
+            <input type="text" id="ingredientName" formControlName="ingredientName" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="supplierID" class="form-label">Mã nhà cung cấp</label>
+            <input type="text" id="supplierID" formControlName="supplierID" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Giá</label>
+            <input type="number" id="price" formControlName="price" class="form-control" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="CloseFormAdd()">Hủy</button>
+            <button type="submit" class="btn btn-primary" (click)="CloseFormAdd()">Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for updating an ingredient -->
+<div class="modal" id="updateIngredientModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateIngredientModalLabel">Cập nhật nguyên liệu</h5>
+        <button type="button" class="close" (click)="CloseFormUpdate()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateIngredientForm" (ngSubmit)="onUpdate()">
+          <input type="hidden" id="ingredientID" [value]="selectedIngredient?.ingredientID" class="form-control" disabled>
+
+          <div class="mb-3">
+            <label for="ingredientName" class="form-label">Tên nguyên liệu</label>
+            <input type="text" id="ingredientName" formControlName="ingredientName" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="supplierID" class="form-label">Mã nhà cung cấp</label>
+            <input type="text" id="supplierID" formControlName="supplierID" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Giá</label>
+            <input type="number" id="price" formControlName="price" class="form-control" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="CloseFormUpdate()">Hủy</button>
+            <button type="submit" class="btn btn-primary" (click)="CloseFormUpdate()">Cập nhật</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for confirming ingredient deletion -->
+<div class="modal" id="deleteIngredientModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteIngredientModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" (click)="CloseFormDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="deleteIngredientForm" (ngSubmit)="onDelete()">
+          <input type="hidden" id="ingredientID" [value]="selectedIngredient?.ingredientID" class="form-control" disabled>
+          <p>Bạn có chắc chắn muốn xóa nguyên liệu này?</p>
+          <p><strong>{{ selectedIngredient?.ingredientName }}</strong></p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="CloseFormDelete()">Hủy</button>
+            <button type="submit" class="btn btn-danger" (click)="CloseFormDelete()">Xóa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

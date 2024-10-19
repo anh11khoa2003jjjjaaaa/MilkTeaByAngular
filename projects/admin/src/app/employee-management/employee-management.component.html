@@ -1,0 +1,182 @@
+<!-- Employee Management Template -->
+<h2 id="headerEmployee">Danh sách nhân viên</h2>
+
+<p-toast position="top-center"
+    [showTransformOptions]="'translateY(100%)'" 
+    [showTransitionOptions]="'1000ms'" 
+    [hideTransitionOptions]="'1000ms'" 
+    [hideTransformOptions]="'translateY(0%)'">
+</p-toast>
+
+<div class="mt-3 d-flex justify-content-between align-items-center">
+  <button type="button" class="btn btn-success" (click)="openformAdd()">
+    Thêm nhân viên
+  </button>
+  <div class="search-container d-flex">
+    <input id="input_search" type="input" placeholder="Search employee..." class="form-control" #searchTerm>
+    <button class="btn btn-secondary ml-2" (click)="searchEmployee(searchTerm.value)">Search</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Message if no employees are available -->
+  <p *ngIf="employees.length === 0">Không có nhân viên nào.</p>
+
+  <!-- Table to display employees -->
+  <table *ngIf="employees.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width: 100px;">Mã nhân viên</th>
+        <th style="width: 200px;">Tên nhân viên</th>
+        <th style="width: 150px;">Vị trí</th>
+        <th style="width: 150px;">Số điện thoại</th>
+        <th style="width: 200px;">Email</th>
+        <th style="width: 150px;">Địa chỉ</th>
+        <th style="width: 100px;">Ngày tuyển dụng</th>
+        <th style="width: 80px;">Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.employeeID }}</td>
+        <td>{{ employee.employeeName }}</td>
+        <td>{{ employee.positionID }}</td>
+        <td>{{ employee.phone }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.address }}</td>
+        <td>{{ employee.hireDate | date }}</td>
+        <td id="gb_btn">
+          <!-- Update and Delete buttons -->
+          <button type="button" id="btn_edit" class="btn btn-primary" (click)="setEmployeeToUpdate(employee)">
+            <i class="fa-solid fa-wrench"></i>
+          </button>
+          <button type="button" id="btn_delete" class="btn btn-danger" (click)="setEmployeeToDelete(employee)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for adding an employee -->
+<div class="modal" id="addEmployeeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: brown;">
+        <h5 class="modal-title" id="addEmployeeModalLabel" style="color:white">Thêm nhân viên mới</h5>
+        <button type="button" class="close" (click)="closeFormAdd()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+          <input type="hidden" id="employeeID" [value]="newEmployeeId" class="form-control" disabled>
+
+          <div class="mb-3">
+            <label for="employeeName" class="form-label">Tên nhân viên</label>
+            <input type="text" id="employeeName" formControlName="employeeName" class="form-control" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="positionID" class="form-label">Vị trí</label>
+            <input type="text" id="positionID" formControlName="positionID" class="form-control" required>
+          </div> -->
+          <div class="mb-3">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Địa chỉ</label>
+            <input type="text" id="address" formControlName="address" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="hireDate" class="form-label">Ngày tuyển dụng</label>
+            <input type="date" id="hireDate" formControlName="hireDate" class="form-control" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeFormAdd()">Hủy</button>
+            <button type="submit" class="btn btn-primary" (click)="closeFormAdd()">Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for updating an employee -->
+<div class="modal" id="updateEmployeeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateEmployeeModalLabel">Cập nhật nhân viên</h5>
+        <button type="button" class="close" (click)="closeFormUpdate()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateEmployeeForm" (ngSubmit)="onUpdate()">
+          <input type="hidden" id="employeeID" [value]="selectedEmployee?.employeeID" class="form-control" disabled>
+
+          <div class="mb-3">
+            <label for="employeeName" class="form-label">Tên nhân viên</label>
+            <input type="text" id="employeeName" formControlName="employeeName" class="form-control" required>
+          </div>
+          <!-- <div class="mb-3">
+            <label for="positionID" class="form-label">Vị trí</label>
+            <input type="text" id="positionID" formControlName="positionID" class="form-control" required>
+          </div> -->
+          <div class="mb-3">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Địa chỉ</label>
+            <input type="text" id="address" formControlName="address" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="hireDate" class="form-label">Ngày tuyển dụng</label>
+            <input type="date" id="hireDate" formControlName="hireDate" class="form-control" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeFormUpdate()">Hủy</button>
+            <button type="submit" class="btn btn-primary" (click)="closeFormUpdate()">Cập nhật</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for confirming employee deletion -->
+<div class="modal" id="deleteEmployeeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteEmployeeModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" (click)="closeFormDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="deleteEmployeeForm" (ngSubmit)="onDelete()">
+          <input type="hidden" id="employeeID" [value]="selectedEmployee?.employeeID" class="form-control" disabled>
+          <p>Bạn có chắc chắn muốn xóa nhân viên này?</p>
+          <p><strong>{{ selectedEmployee?.employeeName }}</strong></p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeFormDelete()">Hủy</button>
+            <button type="submit" class="btn btn-danger" (click)="closeFormDelete()">Xóa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
